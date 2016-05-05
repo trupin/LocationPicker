@@ -317,7 +317,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     private var mapViewHeightConstraint: NSLayoutConstraint!
     private var mapViewHeight: CGFloat {
         get {
-            return view.frame.width / 3 * 2
+            return view.frame.height - searchBar.frame.height
         }
     }
     
