@@ -885,8 +885,6 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         }
     }
     
-    
-    
     // MARK: Buttons
     
     func doneButtonDidTap(sender: UIBarButtonItem) {
@@ -904,11 +902,10 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: - UI Mainipulations
     
-    private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) {
+    private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D) {
         mapViewHeightConstraint.constant = mapViewHeight
-        
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(coordinate, 0 , distance)
-        mapView.setRegion(coordinateRegion, animated: true)
+
+        mapView.setCenterCoordinate(coordinate, animated: true)
     }
     
     private func closeMapView() {
@@ -942,7 +939,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         selectedLocationItem = locationItem
         searchBar.text = locationItem.name
         let coordinate = coordinateObjectFromTuple(locationItem.coordinate)
-        showMapViewWithCenterCoordinate(coordinate, WithDistance: longitudinalDistance)
+        showMapViewWithCenterCoordinate(coordinate)
         
         doneButtonItem?.enabled = true
         locationDidSelect(locationItem)
