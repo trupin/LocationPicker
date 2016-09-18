@@ -29,7 +29,7 @@
 import UIKit
 import MapKit
 
-public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
+open class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
     
     // MARK: - Completion closures
     
@@ -60,7 +60,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      `protocol LocationPickerDelegate`
      */
-    public var selectCompletion: ((LocationItem) -> Void)?
+    open var selectCompletion: ((LocationItem) -> Void)?
     
     /**
      Completion closure executed after user finally pick a location.
@@ -89,7 +89,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      `protocol LocationPickerDelegate`
      */
-    public var pickCompletion: ((LocationItem) -> Void)?
+    open var pickCompletion: ((LocationItem) -> Void)?
     
     /**
      Completion closure executed after user delete an alternative location.
@@ -116,7 +116,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      `protocol LocationPickerDataSource`
      */
-    public var deleteCompletion: ((LocationItem) -> Void)?
+    open var deleteCompletion: ((LocationItem) -> Void)?
     
     /**
      Handler closure executed when user try to fetch current location without location access.
@@ -146,17 +146,17 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      `func setLocationDeniedAlertControllerTitle`
      
      */
-    public var locationDeniedHandler: ((LocationPicker) -> Void)?
+    open var locationDeniedHandler: ((LocationPicker) -> Void)?
     
     
     
     // MARK: Optional varaiables
     
         /// Delegate of `protocol LocationPickerDelegate`
-    public var delegate: LocationPickerDelegate?
+    open var delegate: LocationPickerDelegate?
     
         /// DataSource of `protocol LocationPickerDataSource`
-    public var dataSource: LocationPickerDataSource?
+    open var dataSource: LocationPickerDataSource?
     
     /**
      Locations that show in the location list.
@@ -175,7 +175,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      `protocol LocationPickerDataSource`
      */
-    public var alternativeLocations: [LocationItem]?
+    open var alternativeLocations: [LocationItem]?
     
     /**
      Alert Controller shows when user try to fetch current location without location permission.
@@ -197,132 +197,132 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      `protocol LocationPickerDelegate`
      */
-    public var locationDeniedAlertController: UIAlertController?
+    open var locationDeniedAlertController: UIAlertController?
     
     
     
     // MARK: UI Customizations
     
         /// Text that indicates user's current location. __Default__ is __`"Current Location"`__.
-    public var currentLocationText = "Current Location"
+    open var currentLocationText = "Current Location"
     
         /// Text of search bar's placeholder. __Default__ is __`"Search for location"`__.
-    public var searchBarPlaceholder = "Search for location"
+    open var searchBarPlaceholder = "Search for location"
     
         /// Text of location denied alert title. __Default__ is __`"Location access denied"`__
-    public var locationDeniedAlertTitle = "Location access denied"
+    open var locationDeniedAlertTitle = "Location access denied"
     
         /// Text of location denied alert message. __Default__ is __`"Grant location access to use current location"`__
-    public var locationDeniedAlertMessage = "Grant location access to use current location"
+    open var locationDeniedAlertMessage = "Grant location access to use current location"
     
         /// Text of location denied alert _Grant_ button. __Default__ is __`"Grant"`__
-    public var locationDeniedGrantText = "Grant"
+    open var locationDeniedGrantText = "Grant"
     
         /// Text of location denied alert _Cancel_ button. __Default__ is __`"Cancel"`__
-    public var locationDeniedCancelText = "Cancel"
+    open var locationDeniedCancelText = "Cancel"
     
     
     
         /// Longitudinal distance in meters that the map view shows when user select a location and before zoom in or zoom out. __Default__ is __`1000`__.
-    public var defaultLongitudinalDistance: Double = 1000
+    open var defaultLongitudinalDistance: Double = 1000
     
         /// Distance in meters that is used to search locations. __Default__ is __`10000`__
-    public var searchDistance: Double = 10000
+    open var searchDistance: Double = 10000
     
     
     
         /// `mapView.zoomEnabled` will be set to this property's value after view is loaded. __Default__ is __`true`__
-    public var mapViewZoomEnabled = true
+    open var mapViewZoomEnabled = true
     
         /// `mapView.showsUserLocation` is set to this property's value after view is loaded. __Default__ is __`true`__
-    public var mapViewShowsUserLocation = true
+    open var mapViewShowsUserLocation = true
     
         /// `mapView.scrollEnabled` is set to this property's value after view is loaded. __Default__ is __`true`__
-    public var mapViewScrollEnabled = true
+    open var mapViewScrollEnabled = true
     
     /**
      Whether the locations provided in `var alternativeLocations` or obtained from `func alternativeLocationAtIndex(index: Int) -> LocationItem` can be deleted. __Default__ is __`false`__
      - important:
      If this property is set to `true`, remember to update your models by closure, delegate, or override.
      */
-    public var alternativeLocationEditable = false
+    open var alternativeLocationEditable = false
     
     
     
         /// `tableView.backgroundColor` is set to this property's value afte view is loaded. __Default__ is __`UIColor.whiteColor()`__
-    public var tableViewBackgroundColor = UIColor.whiteColor()
+    open var tableViewBackgroundColor = UIColor.white
     
         /// The color of the icon showed in current location cell. __Default__ is __`UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)`__
-    public var currentLocationIconColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
+    open var currentLocationIconColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
     
         /// The color of the icon showed in search result location cells. __Default__ is __`UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)`__
-    public var searchResultLocationIconColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
+    open var searchResultLocationIconColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
     
         /// The color of the icon showed in alternative location cells. __Default__ is __`UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)`__
-    public var alternativeLocationIconColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
+    open var alternativeLocationIconColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
     
         /// The color of the pin showed in the center of map view. __Default__ is __`UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)`__
-    public var pinColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
+    open var pinColor = UIColor(hue: 0.447, saturation: 0.731, brightness: 0.569, alpha: 1)
     
         /// The color of primary text color. __Default__ is __`UIColor(colorLiteralRed: 0.34902, green: 0.384314, blue: 0.427451, alpha: 1)`__
-    public var primaryTextColor = UIColor(colorLiteralRed: 0.34902, green: 0.384314, blue: 0.427451, alpha: 1)
+    open var primaryTextColor = UIColor(colorLiteralRed: 0.34902, green: 0.384314, blue: 0.427451, alpha: 1)
     
         /// The color of secondary text color. __Default__ is __`UIColor(colorLiteralRed: 0.541176, green: 0.568627, blue: 0.584314, alpha: 1)`__
-    public var secondaryTextColor = UIColor(colorLiteralRed: 0.541176, green: 0.568627, blue: 0.584314, alpha: 1)
+    open var secondaryTextColor = UIColor(colorLiteralRed: 0.541176, green: 0.568627, blue: 0.584314, alpha: 1)
     
     
     
         /// The image of the icon showed in current location cell. If this property is set, the `var currentLocationIconColor` won't be adopted.
-    public var currentLocationIconImage: UIImage? = nil
+    open var currentLocationIconImage: UIImage? = nil
     
         /// The image of the icon showed in search result location cells. If this property is set, the `var searchResultLocationIconColor` won't be adopted.
-    public var searchResultLocationIconImage: UIImage? = nil
+    open var searchResultLocationIconImage: UIImage? = nil
     
         /// The image of the icon showed in alternative location cells. If this property is set, the `var alternativeLocationIconColor` won't be adopted.
-    public var alternativeLocationIconImage: UIImage? = nil
+    open var alternativeLocationIconImage: UIImage? = nil
     
         /// The image of the pin showed in the center of map view. If this property is set, the `var pinColor` won't be adopted.
-    public var pinImage: UIImage? = nil
+    open var pinImage: UIImage? = nil
     
     
     
     // MARK: - UI Elements
     
-    public let searchBar = UISearchBar()
-    public let tableView = UITableView()
-    public let mapView = MKMapView()
-    public let pinView = UIImageView()
+    open let searchBar = UISearchBar()
+    open let tableView = UITableView()
+    open let mapView = MKMapView()
+    open let pinView = UIImageView()
     
-    public private(set) var doneButtonItem: UIBarButtonItem?
+    open fileprivate(set) var doneButtonItem: UIBarButtonItem?
     
     
     
     // MARK: Attributes
     
-    private let locationManager = CLLocationManager()
-    private let geocoder = CLGeocoder()
+    fileprivate let locationManager = CLLocationManager()
+    fileprivate let geocoder = CLGeocoder()
     
-    private var selectedLocationItem: LocationItem?
-    private var searchResultLocations = [LocationItem]()
+    fileprivate var selectedLocationItem: LocationItem?
+    fileprivate var searchResultLocations = [LocationItem]()
     
-    private var alternativeLocationCount: Int {
+    fileprivate var alternativeLocationCount: Int {
         get {
             return alternativeLocations?.count ?? dataSource?.numberOfAlternativeLocations() ?? 0
         }
     }
     
-    private var longitudinalDistance: Double!   // This property is used to record the longitudinal distance of the map view. This is neccessary because when user zoom in or zoom out the map view, func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) will reset the region of the map view.
-    private var mapViewCenterChanged = false    // This property is used to record whether the map view center changes. This is neccessary because private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) would trigger func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) which calls func reverseGeocodeLocation(location: CLLocation), and this method calls private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) back, this would lead to an infinite loop.
+    fileprivate var longitudinalDistance: Double!   // This property is used to record the longitudinal distance of the map view. This is neccessary because when user zoom in or zoom out the map view, func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) will reset the region of the map view.
+    fileprivate var mapViewCenterChanged = false    // This property is used to record whether the map view center changes. This is neccessary because private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) would trigger func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) which calls func reverseGeocodeLocation(location: CLLocation), and this method calls private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D, WithDistance distance: Double) back, this would lead to an infinite loop.
     
-    private var mapViewHeightConstraint: NSLayoutConstraint!
-    private var mapViewHeight: CGFloat {
+    fileprivate var mapViewHeightConstraint: NSLayoutConstraint!
+    fileprivate var mapViewHeight: CGFloat {
         get {
             return view.frame.height - searchBar.frame.height
         }
     }
     
-    private var pinViewCenterYConstraint: NSLayoutConstraint!
-    private var pinViewImageHeight: CGFloat {
+    fileprivate var pinViewCenterYConstraint: NSLayoutConstraint!
+    fileprivate var pinViewImageHeight: CGFloat {
         get {
             return pinView.image!.size.height
         }
@@ -332,7 +332,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: - View Controller
     
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         longitudinalDistance = defaultLongitudinalDistance
@@ -343,7 +343,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         
     }
     
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         guard doneButtonItem == nil else { return }
@@ -356,7 +356,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: Initializations
     
-    private func setupLocationManager() {
+    fileprivate func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 10
@@ -367,23 +367,23 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         }
     }
     
-    private func setupViews() {
-        view.backgroundColor = UIColor.whiteColor()     // the background color of view needs to be set because this color would affect the color of navigation bar if it is translucent.
+    fileprivate func setupViews() {
+        view.backgroundColor = UIColor.white     // the background color of view needs to be set because this color would affect the color of navigation bar if it is translucent.
         
         searchBar.delegate = self
         searchBar.placeholder = searchBarPlaceholder
-        let textFieldInsideSearchBar = searchBar.valueForKey("searchField") as! UITextField
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as! UITextField
         textFieldInsideSearchBar.textColor = primaryTextColor
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.backgroundColor = tableViewBackgroundColor
         
-        mapView.zoomEnabled = mapViewZoomEnabled
-        mapView.rotateEnabled = false
-        mapView.pitchEnabled = false
-        mapView.scrollEnabled = mapViewScrollEnabled
+        mapView.isZoomEnabled = mapViewZoomEnabled
+        mapView.isRotateEnabled = false
+        mapView.isPitchEnabled = false
+        mapView.isScrollEnabled = mapViewScrollEnabled
         mapView.showsUserLocation = mapViewShowsUserLocation
         mapView.delegate = self
         
@@ -401,7 +401,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         mapView.addSubview(pinView)
     }
     
-    private func layoutViews() {
+    fileprivate func layoutViews() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -410,45 +410,45 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         if #available(iOS 9.0, *) {
             let margins = view.layoutMarginsGuide
             
-            searchBar.topAnchor.constraintEqualToAnchor(topLayoutGuide.bottomAnchor).active = true
-            searchBar.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor, constant: -view.layoutMargins.left * 2).active = true
-            searchBar.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor, constant: view.layoutMargins.right * 2).active = true
+            searchBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor).isActive = true
+            searchBar.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: -view.layoutMargins.left * 2).isActive = true
+            searchBar.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: view.layoutMargins.right * 2).isActive = true
             
-            tableView.topAnchor.constraintEqualToAnchor(searchBar.bottomAnchor).active = true
-            tableView.leadingAnchor.constraintEqualToAnchor(searchBar.leadingAnchor).active = true
-            tableView.trailingAnchor.constraintEqualToAnchor(searchBar.trailingAnchor).active = true
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
+            tableView.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor).isActive = true
+            tableView.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor).isActive = true
             
-            mapView.topAnchor.constraintEqualToAnchor(tableView.bottomAnchor).active = true
-            mapView.leadingAnchor.constraintEqualToAnchor(tableView.leadingAnchor).active = true
-            mapView.trailingAnchor.constraintEqualToAnchor(tableView.trailingAnchor).active = true
-            mapView.bottomAnchor.constraintEqualToAnchor(bottomLayoutGuide.topAnchor).active = true
+            mapView.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
+            mapView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
+            mapView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+            mapView.bottomAnchor.constraint(equalTo: bottomLayoutGuide.topAnchor).isActive = true
             
-            mapViewHeightConstraint = mapView.heightAnchor.constraintEqualToConstant(0)
-            mapViewHeightConstraint.active = true
+            mapViewHeightConstraint = mapView.heightAnchor.constraint(equalToConstant: 0)
+            mapViewHeightConstraint.isActive = true
             
-            pinView.centerXAnchor.constraintEqualToAnchor(mapView.centerXAnchor).active = true
-            pinViewCenterYConstraint = pinView.centerYAnchor.constraintEqualToAnchor(mapView.centerYAnchor, constant: -pinViewImageHeight / 2)
-            pinViewCenterYConstraint.active = true
+            pinView.centerXAnchor.constraint(equalTo: mapView.centerXAnchor).isActive = true
+            pinViewCenterYConstraint = pinView.centerYAnchor.constraint(equalTo: mapView.centerYAnchor, constant: -pinViewImageHeight / 2)
+            pinViewCenterYConstraint.isActive = true
         } else {
-            NSLayoutConstraint(item: searchBar, attribute: .Top, relatedBy: .Equal, toItem: topLayoutGuide, attribute: .Bottom, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: searchBar, attribute: .Leading, relatedBy: .Equal, toItem: view, attribute: .Leading, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: searchBar, attribute: .Trailing, relatedBy: .Equal, toItem: view, attribute: .Trailing, multiplier: 1, constant: 0).active = true
+            NSLayoutConstraint(item: searchBar, attribute: .top, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: searchBar, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: searchBar, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
             
-            NSLayoutConstraint(item: tableView, attribute: .Top, relatedBy: .Equal, toItem: searchBar, attribute: .Bottom, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: tableView, attribute: .Leading, relatedBy: .Equal, toItem: searchBar, attribute: .Leading, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: tableView, attribute: .Trailing, relatedBy: .Equal, toItem: searchBar, attribute: .Trailing, multiplier: 1, constant: 0).active = true
+            NSLayoutConstraint(item: tableView, attribute: .top, relatedBy: .equal, toItem: searchBar, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: tableView, attribute: .leading, relatedBy: .equal, toItem: searchBar, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: tableView, attribute: .trailing, relatedBy: .equal, toItem: searchBar, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
             
-            NSLayoutConstraint(item: mapView, attribute: .Top, relatedBy: .Equal, toItem: tableView, attribute: .Bottom, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: mapView, attribute: .Leading, relatedBy: .Equal, toItem: tableView, attribute: .Leading, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: mapView, attribute: .Trailing, relatedBy: .Equal, toItem: tableView, attribute: .Trailing, multiplier: 1, constant: 0).active = true
-            NSLayoutConstraint(item: mapView, attribute: .Bottom, relatedBy: .Equal, toItem: bottomLayoutGuide, attribute: .Top, multiplier: 1, constant: 0).active = true
+            NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: tableView, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: tableView, attribute: .leading, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: mapView, attribute: .trailing, relatedBy: .equal, toItem: tableView, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
+            NSLayoutConstraint(item: mapView, attribute: .bottom, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .top, multiplier: 1, constant: 0).isActive = true
             
-            mapViewHeightConstraint = NSLayoutConstraint(item: mapView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .Height, multiplier: 1, constant: 0)
-            mapViewHeightConstraint.active = true
+            mapViewHeightConstraint = NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 0)
+            mapViewHeightConstraint.isActive = true
             
-            NSLayoutConstraint(item: pinView, attribute: .CenterX, relatedBy: .Equal, toItem: mapView, attribute: .CenterX, multiplier: 1, constant: 0).active = true
-            pinViewCenterYConstraint = NSLayoutConstraint(item: pinView, attribute: .CenterY, relatedBy: .Equal, toItem: mapView, attribute: .CenterY, multiplier: 1, constant: -pinViewImageHeight / 2)
-            pinViewCenterYConstraint.active = true
+            NSLayoutConstraint(item: pinView, attribute: .centerX, relatedBy: .equal, toItem: mapView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+            pinViewCenterYConstraint = NSLayoutConstraint(item: pinView, attribute: .centerY, relatedBy: .equal, toItem: mapView, attribute: .centerY, multiplier: 1, constant: -pinViewImageHeight / 2)
+            pinViewCenterYConstraint.isActive = true
         }
     }
     
@@ -470,24 +470,24 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - parameter cancelButtonItem:    An `UIBarButtonITem` tapped to cancel selection, default is a _Cancel_ `barButtonSystemItem`
      - parameter doneButtonOrientation: The direction of the done button, default is `.Right`
      */
-    public func addButtons(doneButtonItem: UIBarButtonItem? = nil,
+    open func addButtons(_ doneButtonItem: UIBarButtonItem? = nil,
                            cancelButtonItem: UIBarButtonItem? = nil,
-                           doneButtonOrientation: NavigationItemOrientation = .Right) {
-        let doneButtonItem = doneButtonItem ?? UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
-        doneButtonItem.enabled = false
+                           doneButtonOrientation: NavigationItemOrientation = .right) {
+        let doneButtonItem = doneButtonItem ?? UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+        doneButtonItem.isEnabled = false
         doneButtonItem.target = self
         doneButtonItem.action = #selector(doneButtonDidTap(_:))
         self.doneButtonItem = doneButtonItem
         
-        let cancelButtonItem = cancelButtonItem ?? UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
+        let cancelButtonItem = cancelButtonItem ?? UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
         cancelButtonItem.target = self
         cancelButtonItem.action = #selector(cancelButtonDidTap(_:))
         
         switch doneButtonOrientation {
-        case .Right:
+        case .right:
             navigationItem.leftBarButtonItem = cancelButtonItem
             navigationItem.rightBarButtonItem = doneButtonItem
-        case .Left:
+        case .left:
             navigationItem.leftBarButtonItem = doneButtonItem
             navigationItem.rightBarButtonItem = cancelButtonItem
         }
@@ -518,7 +518,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - parameter primaryTextColor:   The color of primary text
      - parameter secondaryTextColor: The color of secondary text
      */
-    public func setColors(themeColor: UIColor? = nil, primaryTextColor: UIColor? = nil, secondaryTextColor: UIColor? = nil) {
+    open func setColors(_ themeColor: UIColor? = nil, primaryTextColor: UIColor? = nil, secondaryTextColor: UIColor? = nil) {
         self.currentLocationIconColor = themeColor ?? self.currentLocationIconColor
         self.searchResultLocationIconColor = themeColor ?? self.searchResultLocationIconColor
         self.alternativeLocationIconColor = themeColor ?? self.alternativeLocationIconColor
@@ -540,7 +540,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      - parameter grantText:  Text of location denied alert _Grant_ button text
      - parameter cancelText: Text of location denied alert _Cancel_ button text
      */
-    public func setLocationDeniedAlertControllerTitle(title: String? = nil, message: String? = nil, grantText: String? = nil, cancelText: String? = nil) {
+    open func setLocationDeniedAlertControllerTitle(_ title: String? = nil, message: String? = nil, grantText: String? = nil, cancelText: String? = nil) {
         self.locationDeniedAlertTitle = title ?? self.locationDeniedAlertTitle
         self.locationDeniedAlertMessage = message ?? self.locationDeniedAlertMessage
         self.locationDeniedGrantText = grantText ?? self.locationDeniedGrantText
@@ -584,7 +584,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      - parameter locationItem: The location item user selected
      */
-    public func locationDidSelect(locationItem: LocationItem) {
+    open func locationDidSelect(_ locationItem: LocationItem) {
         selectCompletion?(locationItem)
         delegate?.locationDidSelect?(locationItem)
     }
@@ -622,7 +622,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      - parameter locationItem: The location item user picked
      */
-    public func locationDidPick(locationItem: LocationItem) {
+    open func locationDidPick(_ locationItem: LocationItem) {
         pickCompletion?(locationItem)
         delegate?.locationDidPick?(locationItem)
     }
@@ -658,7 +658,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      - parameter locationItem: The location item needs to be deleted
      */
-    public func alternativeLocationDidDelete(locationItem: LocationItem) {
+    open func alternativeLocationDidDelete(_ locationItem: LocationItem) {
         deleteCompletion?(locationItem)
         dataSource?.commitAlternativeLocationDeletion?(locationItem)
     }
@@ -696,22 +696,22 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
      
      - parameter locationPicker `LocationPicker` instance that needs to response to user's location request
      */
-    public func locationDidDeny(locationPicker: LocationPicker) {
+    open func locationDidDeny(_ locationPicker: LocationPicker) {
         locationDeniedHandler?(self)
         delegate?.locationDidDeny?(self)
         
         if locationDeniedHandler == nil && delegate?.locationDidDeny == nil {
             if let alertController = locationDeniedAlertController {
-                presentViewController(alertController, animated: true, completion: nil)
+                present(alertController, animated: true, completion: nil)
             } else {
-                let alertController = UIAlertController(title: locationDeniedAlertTitle, message: locationDeniedAlertMessage, preferredStyle: .Alert)
-                alertController.addAction(UIAlertAction(title: locationDeniedGrantText, style: .Default, handler: { (alertAction) in
-                    if let url = NSURL(string: UIApplicationOpenSettingsURLString) {
-                        UIApplication.sharedApplication().openURL(url)
+                let alertController = UIAlertController(title: locationDeniedAlertTitle, message: locationDeniedAlertMessage, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: locationDeniedGrantText, style: .default, handler: { (alertAction) in
+                    if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                        UIApplication.shared.openURL(url)
                     }
                 }))
-                alertController.addAction(UIAlertAction(title: locationDeniedCancelText, style: .Cancel, handler: nil))
-                presentViewController(alertController, animated: true, completion: nil)
+                alertController.addAction(UIAlertAction(title: locationDeniedCancelText, style: .cancel, handler: nil))
+                present(alertController, animated: true, completion: nil)
             }
         }
     }
@@ -720,26 +720,26 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: - Gesture Recognizer
     
-    func panGestureInMapViewDidRecognize(sender: UIPanGestureRecognizer) {
+    func panGestureInMapViewDidRecognize(_ sender: UIPanGestureRecognizer) {
         switch(sender.state) {
-        case .Began:
+        case .began:
             mapViewCenterChanged = true
             selectedLocationItem = nil
             geocoder.cancelGeocode()
             
             searchBar.text = nil
             if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
-                tableView.deselectRowAtIndexPath(indexPathForSelectedRow, animated: true)
+                tableView.deselectRow(at: indexPathForSelectedRow, animated: true)
             }
             if let doneButtonItem = doneButtonItem {
-                doneButtonItem.enabled = false
+                doneButtonItem.isEnabled = false
             }
         default:
             break
         }
     }
     
-    public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
@@ -747,7 +747,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: Search Bar Delegate
     
-    public func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    open func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.characters.count > 0 {
             let localSearchRequest = MKLocalSearchRequest()
             localSearchRequest.naturalLanguageQuery = searchText
@@ -755,7 +755,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             if let currentCoordinate = locationManager.location?.coordinate {
                 localSearchRequest.region = MKCoordinateRegionMakeWithDistance(currentCoordinate, searchDistance, searchDistance)
             }
-            MKLocalSearch(request: localSearchRequest).startWithCompletionHandler({ (localSearchResponse, error) -> Void in
+            MKLocalSearch(request: localSearchRequest).start(completionHandler: { (localSearchResponse, error) -> Void in
                 guard error == nil else { return }
                 guard let localSearchResponse = localSearchResponse else { return }
                 guard localSearchResponse.mapItems.count > 0 else { return }
@@ -770,12 +770,12 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             closeMapView()
             
             if let doneButtonItem = doneButtonItem {
-                doneButtonItem.enabled = false
+                doneButtonItem.isEnabled = false
             }
         }
     }
     
-    public func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    open func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
     }
     
@@ -783,29 +783,29 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MAKR: Table View Delegate and Data Source
     
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1 + searchResultLocations.count + alternativeLocationCount
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: LocationCell!
         
-        if indexPath.row == 0 {
-            cell = LocationCell(locationType: .CurrentLocation, locationItem: nil)
+        if (indexPath as NSIndexPath).row == 0 {
+            cell = LocationCell(locationType: .currentLocation, locationItem: nil)
             cell.locationNameLabel.text = currentLocationText
             cell.iconView.image = currentLocationIconImage ?? StyleKit.imageOfMapPointerIcon(color: currentLocationIconColor)
-        } else if indexPath.row > 0 && indexPath.row <= searchResultLocations.count {
-            let index = indexPath.row - 1
-            cell = LocationCell(locationType: .SearchLocation, locationItem: searchResultLocations[index])
+        } else if (indexPath as NSIndexPath).row > 0 && (indexPath as NSIndexPath).row <= searchResultLocations.count {
+            let index = (indexPath as NSIndexPath).row - 1
+            cell = LocationCell(locationType: .searchLocation, locationItem: searchResultLocations[index])
             cell.iconView.image = searchResultLocationIconImage ?? StyleKit.imageOfSearchIcon(color: searchResultLocationIconColor)
-        } else if indexPath.row > searchResultLocations.count && indexPath.row <= alternativeLocationCount + searchResultLocations.count {
-            let index = indexPath.row - 1 - searchResultLocations.count
+        } else if (indexPath as NSIndexPath).row > searchResultLocations.count && (indexPath as NSIndexPath).row <= alternativeLocationCount + searchResultLocations.count {
+            let index = (indexPath as NSIndexPath).row - 1 - searchResultLocations.count
             let locationItem = (alternativeLocations?[index] ?? dataSource?.alternativeLocationAtIndex(index))!
-            cell = LocationCell(locationType: .AlternativeLocation, locationItem: locationItem)
+            cell = LocationCell(locationType: .alternativeLocation, locationItem: locationItem)
             cell.iconView.image = alternativeLocationIconImage ?? StyleKit.imageOfPinIcon(color: alternativeLocationIconColor)
         }
         cell.locationNameLabel.textColor = primaryTextColor
@@ -814,17 +814,17 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         return cell
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar.endEditing(true)
         longitudinalDistance = defaultLongitudinalDistance
         
-        if indexPath.row == 0 {
+        if (indexPath as NSIndexPath).row == 0 {
             switch CLLocationManager.authorizationStatus() {
-            case .NotDetermined:
+            case .notDetermined:
                 locationManager.requestWhenInUseAuthorization()
-            case .Denied:
+            case .denied:
                 locationDidDeny(self)
-                tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                tableView.deselectRow(at: indexPath, animated: true)
                 
             default:
                 break
@@ -834,27 +834,27 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
                 reverseGeocodeLocation(currentLocation)
             }
         } else {
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! LocationCell
+            let cell = tableView.cellForRow(at: indexPath) as! LocationCell
             let locationItem = cell.locationItem!
             selectLocationItem(locationItem)
         }
         
     }
     
-    public func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return alternativeLocationEditable && indexPath.row > searchResultLocations.count && indexPath.row <= alternativeLocationCount + searchResultLocations.count
+    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return alternativeLocationEditable && (indexPath as NSIndexPath).row > searchResultLocations.count && (indexPath as NSIndexPath).row <= alternativeLocationCount + searchResultLocations.count
     }
     
-    public func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! LocationCell
+    open func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let cell = tableView.cellForRow(at: indexPath) as! LocationCell
             let locationItem = cell.locationItem!
-            let index = indexPath.row - 1 - searchResultLocations.count
-            alternativeLocations?.removeAtIndex(index)
+            let index = (indexPath as NSIndexPath).row - 1 - searchResultLocations.count
+            alternativeLocations?.remove(at: index)
             
             alternativeLocationDidDelete(locationItem)
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
     
@@ -862,15 +862,15 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: Map View Delegate
     
-    public func mapView(mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+    open func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         if !animated {
-            UIView.animateWithDuration(0.35, delay: 0, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseOut, animations: {
                 self.pinView.frame.origin.y -= self.pinViewImageHeight / 2
                 }, completion: nil)
         }
     }
     
-    public func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    open func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         longitudinalDistance = longitudinalDistanceFromMapRect(mapView.visibleMapRect)
         if mapViewCenterChanged {
             mapViewCenterChanged = false
@@ -879,7 +879,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
         }
         
         if !animated {
-            UIView.animateWithDuration(0.35, delay: 0, options: .CurveEaseOut, animations: {
+            UIView.animate(withDuration: 0.35, delay: 0, options: .curveEaseOut, animations: {
                 self.pinView.frame.origin.y += self.pinViewImageHeight / 2
                 }, completion: nil)
         }
@@ -887,28 +887,28 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: Buttons
     
-    func doneButtonDidTap(sender: UIBarButtonItem) {
+    func doneButtonDidTap(_ sender: UIBarButtonItem) {
         if let locationItem = selectedLocationItem {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
             locationDidPick(locationItem)
         }
     }
     
-    func cancelButtonDidTap(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func cancelButtonDidTap(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     
     
     // MARK: - UI Mainipulations
     
-    private func showMapViewWithCenterCoordinate(coordinate: CLLocationCoordinate2D) {
+    fileprivate func showMapViewWithCenterCoordinate(_ coordinate: CLLocationCoordinate2D) {
         mapViewHeightConstraint.constant = mapViewHeight
 
-        mapView.setCenterCoordinate(coordinate, animated: true)
+        mapView.setCenter(coordinate, animated: true)
     }
     
-    private func closeMapView() {
+    fileprivate func closeMapView() {
         mapViewHeightConstraint.constant = 0
     }
     
@@ -916,12 +916,12 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: - Location Manager Delegate
     
-    public func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    open func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
     
-    public func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if tableView.indexPathForSelectedRow?.row == 0 {
+    open func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if (tableView.indexPathForSelectedRow as NSIndexPath?)?.row == 0 {
             let currentLocation = locations[0]
             reverseGeocodeLocation(currentLocation)
             if #available(iOS 9.0, *) {
@@ -935,17 +935,17 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
     
     // MARK: Location Handlers
     
-    private func selectLocationItem(locationItem: LocationItem) {
+    fileprivate func selectLocationItem(_ locationItem: LocationItem) {
         selectedLocationItem = locationItem
         searchBar.text = locationItem.name
         let coordinate = coordinateObjectFromTuple(locationItem.coordinate)
         showMapViewWithCenterCoordinate(coordinate)
         
-        doneButtonItem?.enabled = true
+        doneButtonItem?.isEnabled = true
         locationDidSelect(locationItem)
     }
     
-    private func reverseGeocodeLocation(location: CLLocation) {
+    fileprivate func reverseGeocodeLocation(_ location: CLLocation) {
         geocoder.cancelGeocode()
         geocoder.reverseGeocodeLocation(location, completionHandler: { (placeMarks, error) -> Void in
             guard error == nil else {
@@ -954,7 +954,7 @@ public class LocationPicker: UIViewController, UISearchBarDelegate, UITableViewD
             }
             guard let placeMarks = placeMarks else { return }
             
-            if !self.searchBar.isFirstResponder() {
+            if !self.searchBar.isFirstResponder {
                 let mapItem = MKMapItem(placemark: MKPlacemark(placemark: placeMarks[0]))
                 self.selectLocationItem(LocationItem(mapItem: mapItem))
             }
